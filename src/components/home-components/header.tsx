@@ -156,10 +156,12 @@ const Header = () => {
                         href={`/products/${product.slug.current}`}
                         className="flex items-center gap-4"
                       >
-                        <img
+                        <Image
                           src={product.image}
                           alt={product.name}
-                          className="w-10 h-10 object-cover rounded"
+                          width={40}
+                          height={40}
+                          className="object-cover rounded"
                         />
                         <div>
                           <p className="font-medium">{product.name}</p>
@@ -322,9 +324,11 @@ const Header = () => {
                         href={`/products/${product.slug.current}`}
                         className="flex items-center gap-4"
                       >
-                        <img
+                        <Image
                           src={product.image}
                           alt={product.name}
+                          width={200}
+                          height={200}
                           className="w-10 h-10 object-cover rounded"
                         />
                         <div>

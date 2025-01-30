@@ -304,9 +304,11 @@ const Header = () => {
                         href={`/products/${product.slug.current}`}
                         className="flex items-center gap-4"
                       >
-                        <img
+                        <Image
                           src={product.image}
                           alt={product.name}
+                          width={200}
+                          height={300}
                           className="w-10 h-10 object-cover rounded"
                         />
                         <div>
