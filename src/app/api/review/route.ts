@@ -23,7 +23,7 @@ export async function POST(request: Request) {
       .patch(productId)
       .setIfMissing({ reviews: [] })
       .append("reviews", [newReview])
-      .commit({ token: process.env.SANITY_WRITE_TOKEN });
+      .commit({ token: process.env.SANITY_API_TOKEN });
 
     return NextResponse.json(
       { message: "Review submitted successfully!" },
