@@ -11,12 +11,14 @@ import {
   FiSearch,
   FiShoppingCart,
   FiHeart,
-  FiChevronDown,
   FiX,
 } from "react-icons/fi";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import { useCart } from "@/components/cart-components/CartContext";
+import { RiArrowDownSLine } from "react-icons/ri";
+import { IoIosCart, IoIosSearch } from "react-icons/io";
+import { IoHeart } from "react-icons/io5";
 
 interface Product {
   _id: string;
@@ -33,6 +35,7 @@ const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<Product[]>([]);
   const { cartItems, wishlist } = useCart();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   // Calculate total quantity of items in cart
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
@@ -50,6 +53,11 @@ const Header = () => {
     window.location.href = `/search?q=${encodeURIComponent(searchQuery)}`;
   };
 
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
+
   return (
     <div className="overflow-x-hidden">
       {/* Header Section */}
@@ -58,50 +66,50 @@ const Header = () => {
           {/* Contact Information */}
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1">
-              <FiPhone />
-              <p>(+92) 3172077696</p>
+              <FiPhone className="hover:text-black" />
+              <p className="hover:text-black">(+92) 3133856076</p>
             </div>
             <div className="flex items-center gap-1">
-              <FiMail />
-              <p>ukubaid74@gmail.com</p>
+              <FiMail className="hover:text-black"/>
+              <p className="hover:text-black">salman854raza@gmail.com</p>
             </div>
           </div>
 
           {/* Promotion */}
-          <p className="hidden md:block">
+          <p className="hidden md:block hover:text-black">
             Follow Us and get a chance to win 80% off
           </p>
 
           {/* Social Media Links */}
           <div className="flex items-center gap-4">
-            <p className="hidden md:block">Follow Us:</p>
+            <p className="hidden md:block hover:text-pink-300">Follow Us:</p>
             <Link
               href="https://www.instagram.com"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <FiInstagram />
+              <FiInstagram className="hover:text-pink-600"/>
             </Link>
             <Link
               href="https://www.youtube.com"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <FiYoutube />
+              <FiYoutube className="hover:text-red-600"/>
             </Link>
             <Link
               href="https://www.facebook.com"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <FiFacebook />
+              <FiFacebook className="hover:text-blue-600"/>
             </Link>
             <Link
               href="https://www.twitter.com"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <FiTwitter />
+              <FiTwitter className="hover:text-blue-300"/>
             </Link>
           </div>
         </div>
@@ -112,7 +120,7 @@ const Header = () => {
         <div className="container mx-auto flex items-center justify-between py-4">
           {/* Logo */}
           <Link href={"/"}>
-            <div className="text-2xl font-bold text-[#252B42] hover:text-slate-600 ml-2">
+            <div className="text-2xl font-bold text-[#252B42] hover:text-green-500 ml-2">
               Bandage
             </div>
           </Link>
@@ -129,7 +137,7 @@ const Header = () => {
                 className="w-32 px-2 py-1 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#23A6F0]"
               />
               <button type="submit" className="absolute right-2 top-1.5">
-                <FiSearch className="text-lg cursor-pointer text-gray-600" />
+              <IoIosSearch  className="text-lg cursor-pointer text-gray-600 hover:text-green-600" />
               </button>
             </form>
 
@@ -166,7 +174,7 @@ const Header = () => {
 
             <Link href={"/cart"}>
               <div className="relative">
-                <FiShoppingCart className="text-2xl text-[#737373] cursor-pointer" />
+                <FiShoppingCart className="text-2xl text-[#737373] cursor-pointer hover:text-blue-600" />
                 {totalItems > 0 && (
                   <span className="absolute -top-3 -right-3 bg-[#23A6F0] text-white text-xs font-semibold rounded-full w-5 h-5 flex items-center justify-center">
                     {totalItems}
@@ -176,7 +184,7 @@ const Header = () => {
             </Link>
             <Link href={"/wishlist"}>
               <div className="relative">
-                <FiHeart className="text-2xl text-[#737373] cursor-pointer" />
+                <FiHeart className="text-2xl text-[#737373] cursor-pointer hover:text-blue-600" />
                 {totalWishlistItems > 0 && (
                   <span className="absolute -top-3 -right-3 bg-[#23A6F0] text-white text-xs font-semibold rounded-full w-5 h-5 flex items-center justify-center">
                     {totalWishlistItems}
@@ -210,15 +218,45 @@ const Header = () => {
                   Home
                 </Link>
               </li>
-              <li className="relative group">
-                <Link
-                  href="/productList"
-                  className="flex items-center gap-1 hover:text-[#23A6F0] transition-all"
-                >
-                  Shop
-                  <FiChevronDown />
-                </Link>
-              </li>
+              {/* Shop Dropdown */}
+            <li className="relative z-50 flex justify-center item-center">
+              <button
+                className="flex items-center gap-1 hover:text-green-500 transition-all"
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+              >
+                Shop
+                <RiArrowDownSLine className="ml-1 text-xl hover:text-green-500" />
+              </button>
+
+              {dropdownOpen && (
+                <div className="absolute top-full left-0 bg-white shadow-lg rounded-md py-2 w-40 border border-gray-200 z-1000">
+                  <Link
+                    href="/mens-clothing"
+                    className="block px-4 py-2 text-black hover:bg-green-600 hover:text-white transition-all"
+                  >
+                    Men's Clothing
+                  </Link>
+                  <Link
+                    href="/womens-clothing"
+                    className="block px-4 py-2 text-black hover:bg-green-600 hover:text-white transition-all"
+                  >
+                    Women's Clothing
+                  </Link>
+                  <Link
+                    href="/accessories"
+                    className="block px-4 py-2 text-black hover:bg-green-600 hover:text-white transition-all"
+                  >
+                    Accessories
+                  </Link>
+                  <Link
+                    href="/shoes"
+                    className="block px-4 py-2 text-black hover:bg-green-600  hover:text-green-500 transition-all"
+                  >
+                    Shoes
+                  </Link>
+                </div>
+              )}
+            </li>
               <li>
                 <Link
                   href="/products"
@@ -287,7 +325,7 @@ const Header = () => {
                 className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#23A6F0]"
               />
               <button type="submit" className="absolute right-2 top-2">
-                <FiSearch className="text-lg cursor-pointer mt-1" />
+              <IoIosSearch className="text-lg cursor-pointer mt-1" />
               </button>
             </form>
 
@@ -326,7 +364,7 @@ const Header = () => {
 
             <Link href={"/cart"}>
               <div className="relative">
-                <FiShoppingCart className="text-lg cursor-pointer" />
+              <IoIosCart className="text-lg cursor-pointer" />
                 {totalItems > 0 && (
                   <span className="absolute -top-2 -right-3 bg-[#737373] text-white text-xs font-semibold rounded-full w-4 h-4 flex items-center justify-center">
                     {totalItems}
@@ -336,7 +374,7 @@ const Header = () => {
             </Link>
             <Link href={"/wishlist"}>
               <div className="relative">
-                <FiHeart className="text-lg cursor-pointer" />
+              <IoHeart  className="text-lg cursor-pointer" />
                 {totalWishlistItems > 0 && (
                   <span className="absolute -top-2 -right-3 bg-[#737373] text-white text-xs font-semibold rounded-full w-4 h-4 flex items-center justify-center">
                     {totalWishlistItems}
@@ -359,13 +397,46 @@ const Header = () => {
                 Home
               </Link>
             </li>
-            <li>
-              <Link
-                href="/productList"
-                className="hover:text-[#23A6F0] transition-all"
+             {/* Shop Dropdown */}
+             <li className="relative z-50">
+              <button
+                className="flex items-center gap-1 hover:text-green-500 transition-all"
+                onClick={() => setDropdownOpen(!dropdownOpen)}
               >
+                <Link href="/productList" className="hover:text-green-500 transition-all">
                 Shop
-              </Link>
+                </Link>
+                <RiArrowDownSLine className="ml-1 text-xl hover:text-green-500" />
+              </button>
+
+              {dropdownOpen && (
+                <div className="absolute top-full left-0 bg-white shadow-lg rounded-md py-2 w-40 border border-gray-200 z-1000">
+                  <Link
+                    href="/mens-clothing"
+                    className="block px-4 py-2 text-black hover:bg-green-600 hover:text-white transition-all"
+                  >
+                    Men's Clothing
+                  </Link>
+                  <Link
+                    href="/womens-clothing"
+                    className="block px-4 py-2 text-black hover:bg-green-600 hover:text-white transition-all"
+                  >
+                    Women's Clothing
+                  </Link>
+                  <Link
+                    href="/accessories"
+                    className="block px-4 py-2 text-black hover:bg-green-600 hover:text-white transition-all"
+                  >
+                    Accessories
+                  </Link>
+                  <Link
+                    href="/shoes"
+                    className="block px-4 py-2 text-black hover:bg-green-600  hover:text-green-500 transition-all"
+                  >
+                    Shoes
+                  </Link>
+                </div>
+              )}
             </li>
             <li>
               <Link
@@ -425,9 +496,9 @@ const Header = () => {
 
             {/* Other Icons */}
             <div className="flex gap-6 text-[#23A6F0]">
-              <FiSearch className="text-2xl cursor-pointer" />
+            <IoIosSearch className="text-2xl cursor-pointer" />
               <div className="relative">
-                <FiShoppingCart className="text-2xl cursor-pointer" />
+              <IoIosCart className="text-2xl cursor-pointer" />
                 {totalItems > 0 && (
                   <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                     {totalItems}
@@ -435,7 +506,7 @@ const Header = () => {
                 )}
               </div>
               <div className="relative">
-                <FiHeart className="text-2xl cursor-pointer" />
+              <IoHeart className="text-2xl cursor-pointer" />
                 {totalWishlistItems > 0 && (
                   <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                     {totalWishlistItems}
@@ -451,3 +522,7 @@ const Header = () => {
 };
 
 export default Header;
+function setDropdownOpen(arg0: boolean) {
+  throw new Error("Function not implemented.");
+}
+

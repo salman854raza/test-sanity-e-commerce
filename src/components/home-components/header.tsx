@@ -11,9 +11,9 @@ import {
   FiSearch,
   FiShoppingCart,
   FiHeart,
-  FiChevronDown,
   FiX,
 } from "react-icons/fi";
+import { RiArrowDownSLine } from "react-icons/ri";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import { useCart } from "../cart-components/CartContext";
@@ -33,6 +33,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<Product[]>([]);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const { cartItems, wishlist } = useCart();
 
   // Calculate total quantity of items in cart
@@ -56,6 +57,10 @@ const Header = () => {
     window.location.href = `/search?q=${encodeURIComponent(searchQuery)}`;
   };
 
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
   return (
     <div className="overflow-x-hidden">
       {/* Header Section */}
@@ -64,50 +69,50 @@ const Header = () => {
           {/* Contact Information */}
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1">
-              <FiPhone />
-              <p>(+92) 3172077696</p>
+              <FiPhone  className="hover:text-green-500"/>
+              <p className="hover:text-green-500">(+92) 3133856076</p>
             </div>
             <div className="flex items-center gap-1">
-              <FiMail />
-              <p>salman854raza@gmail.com</p>
+              <FiMail className="hover:text-green-500"/>
+              <p className="hover:text-green-500">salman854raza@gmail.com</p>
             </div>
           </div>
 
           {/* Promotion */}
-          <p className="hidden md:block">
+          <p className="hidden md:block hover:text-green-500">
             Follow Us and get a chance to win 80% off
           </p>
 
           {/* Social Media Links */}
           <div className="flex items-center gap-4">
-            <p className="hidden md:block">Follow Us:</p>
+            <p className="hidden md:block hover:text-green-500">Follow Us:</p>
             <Link
               href="https://www.instagram.com"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <FiInstagram />
+              <FiInstagram className="hover:text-green-500"/>
             </Link>
             <Link
               href="https://www.youtube.com"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <FiYoutube />
+              <FiYoutube className="hover:text-green-500" />
             </Link>
             <Link
               href="https://www.facebook.com"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <FiFacebook />
+              <FiFacebook className="hover:text-green-500" />
             </Link>
             <Link
               href="https://www.twitter.com"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <FiTwitter />
+              <FiTwitter className="hover:text-green-500" />
             </Link>
           </div>
         </div>
@@ -119,7 +124,7 @@ const Header = () => {
           {/* Logo */}
           <Link href={"/"}>
             <motion.div
-              className="text-2xl font-bold text-[#252B42] hover:text-slate-600 ml-2"
+              className="text-2xl font-bold text-[#252B42] hover:text-green-500 ml-2"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -139,7 +144,7 @@ const Header = () => {
                 className="w-32 px-2 py-1 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#23A6F0]"
               />
               <button type="submit" className="absolute right-2 top-1.5">
-                <FiSearch className="text-lg cursor-pointer text-gray-600" />
+                <FiSearch className="text-lg cursor-pointer hover:text-green-500" />
               </button>
             </form>
 
@@ -223,23 +228,55 @@ const Header = () => {
           <nav className="hidden md:flex">
             <ul className="flex gap-8 text-sm font-medium text-[#737373] relative">
               <li>
-                <Link href="/" className="hover:text-[#23A6F0] transition-all">
+                <Link href="/" className="hover:text-green-500 transition-all">
                   Home
                 </Link>
               </li>
-              <li className="relative group">
-                <Link
-                  href="/productList"
-                  className="flex items-center gap-1 hover:text-[#23A6F0] transition-all"
-                >
-                  Shop
-                  <FiChevronDown />
+               {/* Shop Dropdown */}
+            <li className="relative z-50">
+              <button
+                className="flex items-center gap-1 hover:text-green-500 transition-all"
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+              >
+                <Link href="/productList" className="hover:text-green-500 transition-all">
+                Shop
                 </Link>
-              </li>
+                <RiArrowDownSLine className="ml-1 text-xl hover:text-green-500" />
+              </button>
+
+              {dropdownOpen && (
+                <div className="absolute top-full left-0 bg-white shadow-lg rounded-md py-2 w-40 border border-gray-200 z-1000">
+                  <Link
+                    href="/mens-clothing"
+                    className="block px-4 py-2 text-black hover:bg-green-600 hover:text-white transition-all"
+                  >
+                    Men's Clothing
+                  </Link>
+                  <Link
+                    href="/womens-clothing"
+                    className="block px-4 py-2 text-black hover:bg-green-600 hover:text-white transition-all"
+                  >
+                    Women's Clothing
+                  </Link>
+                  <Link
+                    href="/accessories"
+                    className="block px-4 py-2 text-black hover:bg-green-600 hover:text-white transition-all"
+                  >
+                    Accessories
+                  </Link>
+                  <Link
+                    href="/shoes"
+                    className="block px-4 py-2 text-black hover:bg-green-600  hover:text-green-500 transition-all"
+                  >
+                    Shoes
+                  </Link>
+                </div>
+              )}
+            </li>
               <li>
                 <Link
                   href="/products"
-                  className="hover:text-[#23A6F0] transition-all"
+                  className="hover:text-green-500 transition-all"
                 >
                   Products
                 </Link>
@@ -247,7 +284,7 @@ const Header = () => {
               <li>
                 <Link
                   href="/about"
-                  className="hover:text-[#23A6F0] transition-all"
+                  className="hover:text-green-500 transition-all"
                 >
                   About
                 </Link>
@@ -255,7 +292,7 @@ const Header = () => {
               <li>
                 <Link
                   href="/blog"
-                  className="hover:text-[#23A6F0] transition-all"
+                  className="hover:text-green-500 transition-all"
                 >
                   Blog
                 </Link>
@@ -263,7 +300,7 @@ const Header = () => {
               <li>
                 <Link
                   href="/contact"
-                  className="hover:text-[#23A6F0] transition-all"
+                  className="hover:text-green-500 transition-all"
                 >
                   Contact
                 </Link>
@@ -271,7 +308,7 @@ const Header = () => {
               <li>
                 <Link
                   href="/team"
-                  className="hover:text-[#23A6F0] transition-all"
+                  className="hover:text-green-500 transition-all"
                 >
                   Team
                 </Link>
@@ -294,7 +331,7 @@ const Header = () => {
               </SignInButton>
             </SignedOut>
             <SignedIn>
-              <UserButton showName />
+              <UserButton showName/>
             </SignedIn>
 
             {/* Search Bar */}
@@ -304,10 +341,10 @@ const Header = () => {
                 placeholder="Search products..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#23A6F0]"
+                className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#23A6F0] hover:text-green-500"
               />
               <button type="submit" className="absolute right-2 top-2">
-                <FiSearch className="text-lg cursor-pointer mt-1" />
+                <FiSearch className="text-lg cursor-pointer mt-1 hover:text-green-500" />
               </button>
             </form>
 
@@ -322,7 +359,7 @@ const Header = () => {
                     >
                       <Link
                         href={`/products/${product.slug.current}`}
-                        className="flex items-center gap-4"
+                        className="flex items-center gap-4 hover:text-green-500"
                       >
                         <Image
                           src={product.image}
@@ -350,7 +387,7 @@ const Header = () => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
-                <FiShoppingCart className="text-lg cursor-pointer" />
+                <FiShoppingCart className="text-lg cursor-pointer hover:text-green-500" />
                 {totalItems > 0 && (
                   <motion.span
                     className="absolute -top-2 -right-3 bg-[#737373] text-white text-xs font-semibold rounded-full w-4 h-4 flex items-center justify-center"
@@ -365,7 +402,7 @@ const Header = () => {
             </Link>
             <Link href={"/wishlist"}>
               <div className="relative">
-                <FiHeart className="text-lg cursor-pointer" size={20} />
+                <FiHeart className="text-lg cursor-pointer hover:text-green-500" size={20} />
                 {totalWishlistItems > 0 && (
                   <span className="absolute -top-2 -right-3 bg-[#737373] text-white text-xs font-semibold rounded-full w-4 h-4 flex items-center justify-center">
                     {totalWishlistItems}
@@ -390,23 +427,56 @@ const Header = () => {
                 <li>
                   <Link
                     href="/"
-                    className="hover:text-[#23A6F0] transition-all"
+                    className="hover:text-green-500 transition-all "
                   >
                     Home
                   </Link>
                 </li>
-                <li>
+                {/* Shop Dropdown */}
+            <li className="relative z-50 flex justify-center item-center">
+              <button
+                className="flex items-center gap-1 hover:text-green-500 transition-all"
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+              >
+                <Link href="/productList" className="hover:text-green-500 transition-all">
+                Shop
+                </Link>
+                <RiArrowDownSLine className="ml-1 text-xl hover:text-green-500" />
+              </button>
+
+              {dropdownOpen && (
+                <div className="absolute top-full left-0 bg-white shadow-lg rounded-md py-2 w-40 border border-gray-200 z-1000">
                   <Link
-                    href="/productList"
-                    className="hover:text-[#23A6F0] transition-all"
+                    href="/mens-clothing"
+                    className="block px-4 py-2 text-black hover:bg-green-600 hover:text-white transition-all"
                   >
-                    Shop
+                    Men's Clothing
                   </Link>
-                </li>
+                  <Link
+                    href="/womens-clothing"
+                    className="block px-4 py-2 text-black hover:bg-green-600 hover:text-white transition-all"
+                  >
+                    Women's Clothing
+                  </Link>
+                  <Link
+                    href="/accessories"
+                    className="block px-4 py-2 text-black hover:bg-green-600 hover:text-white transition-all"
+                  >
+                    Accessories
+                  </Link>
+                  <Link
+                    href="/shoes"
+                    className="block px-4 py-2 text-black hover:bg-green-600  hover:text-green-500 transition-all"
+                  >
+                    Shoes
+                  </Link>
+                </div>
+              )}
+            </li>
                 <li>
                   <Link
                     href="/products"
-                    className="hover:text-[#23A6F0] transition-all"
+                    className="hover:text-green-500 transition-all"
                   >
                     Product
                   </Link>
@@ -414,7 +484,7 @@ const Header = () => {
                 <li>
                   <Link
                     href="/about"
-                    className="hover:text-[#23A6F0] transition-all"
+                    className="hover:text-green-500 transition-all"
                   >
                     About
                   </Link>
@@ -422,7 +492,7 @@ const Header = () => {
                 <li>
                   <Link
                     href="/blog"
-                    className="hover:text-[#23A6F0] transition-all"
+                    className="hover:text-green-500 transition-all"
                   >
                     Blog
                   </Link>
@@ -430,7 +500,7 @@ const Header = () => {
                 <li>
                   <Link
                     href="/contact"
-                    className="hover:text-[#23A6F0] transition-all"
+                    className="hover:text-green-500 transition-all"
                   >
                     Contact
                   </Link>
@@ -438,7 +508,7 @@ const Header = () => {
                 <li>
                   <Link
                     href="/team"
-                    className="hover:text-[#23A6F0] transition-all"
+                    className="hover:text-green-500 transition-all"
                   >
                     Team
                   </Link>
@@ -450,7 +520,7 @@ const Header = () => {
                 <SignedOut>
                   <SignInButton mode="modal">
                     <motion.button
-                      className="text-sm font-medium flex items-center gap-2 text-[#23A6F0]"
+                      className="text-sm font-medium flex items-center gap-2 text-[#23A6F0] hover:text-green-500"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -465,14 +535,14 @@ const Header = () => {
 
                 {/* Other Icons */}
                 <div className="flex gap-6 text-[#23A6F0]">
-                  <FiSearch className="text-2xl cursor-pointer" />
+                  <FiSearch className="text-2xl cursor-pointer hover:text-green-500" />
                   <Link href={"/cart"}>
                     <motion.div
                       className="relative"
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                     >
-                      <FiShoppingCart className="text-2xl cursor-pointer" />
+                      <FiShoppingCart className="text-2xl cursor-pointer hover:text-green-500" />
                       {totalItems > 0 && (
                         <motion.span
                           className="absolute -top-2 -right-3 bg-[#737373] text-white text-xs font-semibold rounded-full w-4 h-4 flex items-center justify-center"
@@ -491,7 +561,7 @@ const Header = () => {
                   </Link>
                   <Link href={"/wishlist"}>
                     <div className="relative">
-                      <FiHeart className="text-lg cursor-pointer" size={25} />
+                      <FiHeart className="text-lg cursor-pointer hover:text-green-500" size={25} />
                       {totalWishlistItems > 0 && (
                         <span className="absolute -top-2 -right-3 bg-[#737373] text-white text-xs font-semibold rounded-full w-4 h-4 flex items-center justify-center">
                           {totalWishlistItems}

@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-import { FiArrowRight, FiX, FiSearch, FiShoppingCart } from "react-icons/fi";
+import { FiArrowRight, FiX, } from "react-icons/fi";
 import {
   ClerkProvider,
   SignedIn,
@@ -11,6 +11,7 @@ import {
 } from "@clerk/nextjs";
 import Image from "next/image";
 import { useCart } from "@/components/cart-components/CartContext";
+import { IoIosCart, IoIosSearch } from "react-icons/io";
 
 
 const Header = () => {
@@ -28,7 +29,7 @@ const Header = () => {
       <div className="container mx-auto flex items-center justify-between px-4">
         {/* Logo */}
         <Link href={"/"}>
-          <div className="text-[24px] font-bold text-[#252B42] mr-8 hover:text-slate-600 ml-2">
+          <div className="text-[24px] font-bold text-[#252B42] mr-8 hover:text-pink-600 ml-2 cursor-pointer ">
             Bandage
           </div>
         </Link>
@@ -36,22 +37,22 @@ const Header = () => {
         <nav className="hidden md:flex flex-row items-center gap-8 text-[14px] text-[#737373] font-bold ml-20">
           <ul className="list-none flex gap-8">
             <Link href="/">
-              <li className="cursor-pointer hover:text-[#23A6F0] transition-all">
+              <li className="cursor-pointer hover:text-pink-600 transition-all">
                 Home
               </li>
             </Link>
             <Link href="/productList">
-              <li className="cursor-pointer hover:text-[#23A6F0] transition-all">
+              <li className="cursor-pointer hover:text-pink-600 transition-all">
                 Product
               </li>
             </Link>
             <Link href="/pricing">
-              <li className="cursor-pointer hover:text-[#23A6F0] transition-all">
+              <li className="cursor-pointer hover:text-pink-600 transition-all">
                 Pricing
               </li>
             </Link>
             <Link href="/contact">
-              <li className="cursor-pointer hover:text-[#23A6F0] transition-all">
+              <li className="cursor-pointer hover:text-pink-600 transition-all">
                 Contact
               </li>
             </Link>
@@ -62,14 +63,14 @@ const Header = () => {
         <div className="flex items-center gap-1 ml-auto">
           {/* Search Icon (Hidden on desktop) */}
           <button className="md:hidden flex items-center justify-center text-[#737373] hover:text-[#23A6F0] hover:border-[#23A6F0] transition-all">
-            <FiSearch size={25} />
+          <IoIosSearch size={25} />
           </button>
 
           {/* Add to Cart Icon (Hidden on desktop) */}
           <button className="md:hidden flex items-center justify-center p-2 text-[#737373] hover:text-[#23A6F0] hover:border-[#23A6F0] transition-all">
           <Link href={"/cart"}>
               <div className="relative">
-                <FiShoppingCart className="text-2xl text-[#737373] cursor-pointer" />
+              <IoIosCart className="text-2xl text-[#737373] cursor-pointer" />
                 {totalItems > 0 && (
                   <span className="absolute -top-3 -right-3 bg-[#23A6F0] text-white text-xs font-semibold rounded-full w-5 h-5 flex items-center justify-center">
                     {totalItems}
@@ -102,7 +103,7 @@ const Header = () => {
 
           {/* Become a member Button (Hidden on mobile) */}
           <Link href={"/pricing"}>
-            <button className="hidden md:flex items-center gap-2 px-4 py-3 bg-[#23A6F0] text-[#FAFAFA] rounded-md hover:bg-blue-500 transition-all">
+            <button className="hidden md:flex items-center gap-2 px-4 py-3 bg-[#23A6F0] text-[#FAFAFA] rounded-md hover:bg-blue-500 transition-all hover:text-pink-600">
               Become a member
               <FiArrowRight className="text-lg" />
             </button>
@@ -135,22 +136,22 @@ const Header = () => {
       >
         <ul className="list-none flex flex-col gap-4 text-[20px] text-[#737373] font-bold">
           <Link href="/">
-            <li className="cursor-pointer hover:text-[#23A6F0] transition-all">
+            <li className="cursor-pointer hover:text-pink-600 transition-all ">
               Home
             </li>
           </Link>
           <Link href="/productList">
-            <li className="cursor-pointer hover:text-[#23A6F0] transition-all">
+            <li className="cursor-pointer hover:text-pink-600 transition-all">
               Product
             </li>
           </Link>
           <Link href="/pricing">
-            <li className="cursor-pointer hover:text-[#23A6F0] transition-all">
+            <li className="cursor-pointer hover:text-pink-600 transition-all">
               Pricing
             </li>
           </Link>
           <Link href="/contact">
-            <li className="cursor-pointer hover:text-[#23A6F0] transition-all">
+            <li className="cursor-pointer hover:text-pink-600 transition-all">
               Contact
             </li>
           </Link>
