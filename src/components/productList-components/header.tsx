@@ -8,7 +8,6 @@ import {
   FiYoutube,
   FiFacebook,
   FiTwitter,
-  FiSearch,
   FiShoppingCart,
   FiHeart,
   FiX,
@@ -52,11 +51,6 @@ const Header = () => {
     // Redirect to the search results page
     window.location.href = `/search?q=${encodeURIComponent(searchQuery)}`;
   };
-
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
-  };
-
 
   return (
     <div className="overflow-x-hidden">
