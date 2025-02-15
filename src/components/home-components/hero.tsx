@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
@@ -60,20 +60,21 @@ const Hero = () => {
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [direction, setDirection] = useState("right");
+   
+  // Memoize handleNext to prevent unnecessary re-renders
+   const handleNext = useCallback(() => {
+    setDirection("right");
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === images.length - 1 ? 0 : prevIndex + 1
+    );
+  }, [images.length]); // Dependency on images.length
 
   useEffect(() => {
     const interval = setInterval(() => {
       handleNext();
     }, 3000);
     return () => clearInterval(interval);
-  }, [currentImageIndex]);
-
-  const handleNext = () => {
-    setDirection("right");
-    setCurrentImageIndex((prevIndex) =>
-      prevIndex === images.length - 1 ? 0 : prevIndex + 1
-    );
-  };
+  }, [handleNext]); // Now depends on handleNext
 
   const handlePrev = () => {
     setDirection("left");
@@ -175,3 +176,7 @@ const Hero = () => {
 };
 
 export default Hero;
+function handleNext() {
+  throw new Error("Function not implemented.");
+}
+

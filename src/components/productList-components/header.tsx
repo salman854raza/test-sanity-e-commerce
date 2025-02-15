@@ -230,13 +230,13 @@ const Header = () => {
                     href="/mens-clothing"
                     className="block px-4 py-2 text-black hover:bg-green-600 hover:text-white transition-all"
                   >
-                    Men's Clothing
+                      Men&apos;s Clothing
                   </Link>
                   <Link
                     href="/womens-clothing"
                     className="block px-4 py-2 text-black hover:bg-green-600 hover:text-white transition-all"
                   >
-                    Women's Clothing
+                    Women&apos;s Clothing
                   </Link>
                   <Link
                     href="/accessories"
@@ -411,13 +411,13 @@ const Header = () => {
                     href="/mens-clothing"
                     className="block px-4 py-2 text-black hover:bg-green-600 hover:text-white transition-all"
                   >
-                    Men's Clothing
+                    Men&apos;s Clothing
                   </Link>
                   <Link
                     href="/womens-clothing"
                     className="block px-4 py-2 text-black hover:bg-green-600 hover:text-white transition-all"
                   >
-                    Women's Clothing
+                     Women&apos;s Clothing
                   </Link>
                   <Link
                     href="/accessories"
