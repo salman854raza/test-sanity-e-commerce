@@ -148,9 +148,11 @@ const Header = () => {
                         href={`/products/${product.slug.current}`}
                         className="flex items-center gap-4"
                       >
-                        <img
+                        <Image
                           src={product.image}
                           alt={product.name}
+                          width={200}
+                          height={200}
                           className="w-10 h-10 object-cover rounded"
                         />
                         <div>
@@ -516,7 +518,4 @@ const Header = () => {
 };
 
 export default Header;
-function setDropdownOpen(arg0: boolean) {
-  throw new Error("Function not implemented.");
-}
 

@@ -57,9 +57,6 @@ const Header = () => {
     window.location.href = `/search?q=${encodeURIComponent(searchQuery)}`;
   };
 
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
-  };
 
   return (
     <div className="overflow-x-hidden">
