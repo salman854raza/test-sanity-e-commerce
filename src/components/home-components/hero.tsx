@@ -176,7 +176,4 @@ const Hero = () => {
 };
 
 export default Hero;
-function handleNext() {
-  throw new Error("Function not implemented.");
-}
 
